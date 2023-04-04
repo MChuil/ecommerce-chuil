@@ -1,7 +1,7 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
 import { getProducts } from '../../../asyncMock'
 import ItemList from '../ItemList/ItemList'
+import './ItemListContainer.css'
 
 const ItemListContainer = ({greeting}) => {
 
@@ -18,7 +18,10 @@ const ItemListContainer = ({greeting}) => {
 
   return (
     <div className='pe-3 pt-2 container text-center'>
-        <h2>{greeting}</h2>
+        <h2 className="my-5">{greeting}</h2>
+
+        { products.length < 1 ? <span className="loader"></span> : '' }
+
         <ItemList 
           products = {products} 
         />

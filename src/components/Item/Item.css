@@ -12,8 +12,7 @@
     height: 100px;
 }
 .card-text{
-    height: 70px;
+    height: auto;
     text-align: justify;
     margin-top:25px;
-    overflow: hidden;
 }
