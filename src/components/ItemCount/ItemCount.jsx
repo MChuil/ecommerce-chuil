@@ -1,4 +1,4 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMinusSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
@@ -39,7 +39,7 @@ const Itemcount = ({initial, stock}) => {
             </div>
             <button className="btn btn-success my-3" onClick={()=> onAdd(quantity)} disabled={!stock}>Agregar al carrito</button>
             <p>
-                <button className="btn btn-secondary btn-sm mt-5">Volver</button>
+                <Link to='/' className="btn btn-secondary btn-sm mt-5">Volver</Link>
             </p>
         </div>
     )

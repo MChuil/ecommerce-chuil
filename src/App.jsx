@@ -1,6 +1,7 @@
 import NavBar from './components/navbar/NavBar'
 import ItemListContainer from './components/ItemsListContainer/ItemListContainer'
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer'
+import { Outlet } from 'react-router-dom'
 
 
 
@@ -10,12 +11,8 @@ function App() {
     <div>
       <NavBar />
 
-      <ItemListContainer 
-        greeting={"Bienvenidos"}
-        />
+  	  <Outlet />
 
-      <ItemDetailContainer />
-      
     </div>
   )
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
 import './Item.css'
 
 const Item = ({product}) => {
@@ -12,7 +12,7 @@ const Item = ({product}) => {
                     <p className="h3 text-success">${price}</p>
                     <p className="card-text text-center">Stock disponible: {rating.count}</p>
                 </div>
-                <button className="btn btn-primary">Ver detalle</button>
+                <Link to={`/detail/${id}`} className="btn btn-primary">Ver detalle</Link>
             </div>
         </div>
     )
