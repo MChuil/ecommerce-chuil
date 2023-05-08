@@ -1,19 +1,16 @@
 import NavBar from './components/navbar/NavBar'
-import ItemListContainer from './components/ItemsListContainer/ItemListContainer'
-import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer'
 import { Outlet } from 'react-router-dom'
+import { CartContextProvider } from './context/CartContext'
 
 
 
 function App() {
 
   return (
-    <div>
+    <CartContextProvider>
       <NavBar />
-
   	  <Outlet />
-
-    </div>
+    </CartContextProvider>
   )
 
 }

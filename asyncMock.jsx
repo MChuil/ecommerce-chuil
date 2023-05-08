@@ -1,3 +1,5 @@
+import { getDoc, getFirestore, doc, collection, getDocs, query, where } from 'firebase/firestore'
+
 export const getCategories= () =>{
     return new Promise((resolve, reject) =>{
         fetch('https://fakestoreapi.com/products/categories')
@@ -11,38 +13,62 @@ export const getCategories= () =>{
 }
 
 export const getCategory= (category) =>{
+    const db = getFirestore()
+    const queryCollection = collection(db, 'productos')
+
+    const queryFilter = query(queryCollection, where('category', '==', category))
+
     return new Promise((resolve, reject) =>{
-        fetch(`https://fakestoreapi.com/products/category/${category}`)
-        .then(res=>res.json())
-        .then(json=>  {
-            console.log(json)
-            resolve(json)
+        getDocs(queryFilter)
+        .then(resp => {
+            const data = resp.docs.map(prod => ({ id: prod.id, ...prod.data()}))
+            resolve(data)
         })
+
+        // fetch(`https://fakestoreapi.com/products/category/${category}`)
+        // .then(res=>res.json())
+        // .then(json=>  {
+        //     resolve(json)
+        // })
     }).catch(er=>{
         reject(er)
     })
 }
 
 
-
 export const getProducts= () =>{
+    const db = getFirestore()
+    const queryCollection = collection(db, 'productos')
     return new Promise((resolve, reject) =>{
-        fetch('https://fakestoreapi.com/products')
-        .then(res=>res.json())
-        .then(json=>  {
-            resolve(json)
-        })
+        getDocs(queryCollection)
+            .then(resp => {
+                const data = resp.docs.map(prod => ({ id: prod.id, ...prod.data()}))
+                resolve(data)
+            })
+    //     fetch('https://fakestoreapi.com/products')
+    //     .then(res=>res.json())
+    //     .then(json=>  {
+    //         resolve(json)
+    //     })
     }).catch(er=>{
         reject(er)
     })
 }
 
 export const getProductById = (productId)=>{
+    const db = getFirestore()
+    const queryDoc = doc(db, 'productos', productId)
+    // 'FjZy7VVFaZV9PYyqb6aq'
     return new Promise((resolve, reject)=>{
-        fetch(`https://fakestoreapi.com/products/${productId}`)
-            .then(res=>res.json())
-            .then(json=> {
-                resolve(json)
-            })
+        getDoc(queryDoc)
+        .then( resp => {
+            const data = { id: resp.id, ...resp.data() }
+            resolve(data)
+        })
+    //fetch(`https://fakestoreapi.com/products/${productId}`)
+    //         .then(res=>res.json())
+    //         .then(json=> {
+    //             resolve(json)
+    //         })
     }).catch( er=> reject(er))
 }

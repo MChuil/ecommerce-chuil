@@ -4,13 +4,13 @@ import { getCategories } from '../../../asyncMock'
 import CartWidget from '../CartWidget/CartWidget'
 const NavBar = () => {
 
-  const [itemsMenu, setItemsMenu] = useState([])
+  // const [itemsMenu, setItemsMenu] = useState([])
 
-  useEffect(()=>{
-    getCategories().then(response=>{
-      setItemsMenu(response)
-    }).catch(err=>console.log(err))
-  }, [])
+  // useEffect(()=>{
+  //   getCategories().then(response=>{
+  //     setItemsMenu(response)
+  //   }).catch(err=>console.log(err))
+  // }, [])
 
   return (
     <div>
@@ -22,9 +22,12 @@ const NavBar = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
-                      {itemsMenu.map(item=>
-                          <li className="nav-item"><Link to={`/category/${item}`}  className="nav-link text-uppercase" aria-current="page" >{item}</Link></li>
-                      )}
+                      {/* {itemsMenu.map(item=>
+                          <li className="nav-item" key={item}><Link to={`/category/${item}`}  className="nav-link text-uppercase" aria-current="page" >{item}</Link></li>
+                      )} */}
+                          <li className="nav-item"><Link to={`/category/men's clothing`}  className="nav-link text-uppercase" aria-current="page" >men's clothing</Link></li>
+                          <li className="nav-item"><Link to={`/category/electronics`}  className="nav-link text-uppercase" aria-current="page" >electronics</Link></li>
+
                     </ul>
                 </div>
                 <CartWidget />

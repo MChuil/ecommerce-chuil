@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getCategory, getProducts } from '../../../asyncMock'
 import ItemList from '../ItemList/ItemList'
-import './ItemListContainer.css'
+import Loading from '../Loading/Loading'
 
 const ItemListContainer = ({greeting}) => {
   let {categoryId}= useParams();
@@ -21,16 +21,24 @@ const ItemListContainer = ({greeting}) => {
   }, [categoryId])
   
 
+
   return (
-    <div className='pe-3 pt-2 container text-center'>
-        <h2 className="my-5 mx-3 text-uppercase text-start">{title}</h2>
+    
+      <div className='pe-3 pt-2 container text-center'>
+          <h2 className="my-5 mx-3 text-uppercase text-start">{title}</h2>
 
-        { products.length < 1 ? <span className="loader"></span> : '' }
+          { 
+            products.length < 1 ? (
+              <Loading />
+            ) : ( 
+              <ItemList 
+                products = {products} 
+              />
+            )
+          }
 
-        <ItemList 
-          products = {products} 
-        />
-    </div>
+      </div>
+
   )
 }
 

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMinusSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 
-const Itemcount = ({initial, stock}) => {
+const Itemcount = ({initial, stock, onAdd}) => {
 
     const [quantity, setQuantity] = useState(initial)
 
@@ -17,11 +17,7 @@ const Itemcount = ({initial, stock}) => {
             setQuantity(quantity-1)
         }
     }
-    const onAdd=(quantity)=>{
-        stock -= quantity
-        console.log("Cantidad agregada al carrio", quantity)
-        console.log("stock", stock)
-    }
+    
     
     return (
         <div className="text-center mt-5">

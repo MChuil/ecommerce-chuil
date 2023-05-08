@@ -2,14 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App'
-import {createBrowserRouter, Navigate, RouterProvider} from 'react-router-dom'
+import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import ItemListContainer from './components/ItemsListContainer/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
+import CartContainer from './components/CartContainer/CartContainer';
+import NotFound from './components/NotFound';
+import { initFirebase } from './firebase/config';
 
 const router = createBrowserRouter([
   {
     path:'/',
     element: <App />,
+    errorElement: <NotFound/>,
     children:[
       {
         index: true,
@@ -22,19 +26,30 @@ const router = createBrowserRouter([
       {
         path:'/detail/:itemId',
         element: <ItemDetailContainer />
+      },
+      {
+        path: '/cart',
+        element: <CartContainer />
       }
     ]
   },
-  {
-    path:'*',
-    element: <Navigate to='/' />,
-  }
+  // {
+  //   path:'*',
+  //   element: <Navigate to='/' />,
+  // }
 ])
+
+
+initFirebase()
+
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider
-      router = {router}
-    />
+    
+      <RouterProvider
+        router = {router}
+      />
+
   </React.StrictMode>,
 )
