@@ -1,16 +1,16 @@
-import { getDoc, getFirestore, doc, collection, getDocs, query, where } from 'firebase/firestore'
+import { getDoc, getFirestore, doc, collection, getDocs, query, where, addDoc, updateDoc } from 'firebase/firestore'
 
-export const getCategories= () =>{
-    return new Promise((resolve, reject) =>{
-        fetch('https://fakestoreapi.com/products/categories')
-        .then(res=>res.json())
-        .then(json=>  {
-            resolve(json)
-        })
-    }).catch(er=>{
-        reject(er)
-    })
-}
+// export const getCategories= () =>{
+//     return new Promise((resolve, reject) =>{
+//         fetch('https://fakestoreapi.com/products/categories')
+//         .then(res=>res.json())
+//         .then(json=>  {
+//             resolve(json)
+//         })
+//     }).catch(er=>{
+//         reject(er)
+//     })
+// }
 
 export const getCategory= (category) =>{
     const db = getFirestore()
@@ -58,7 +58,6 @@ export const getProducts= () =>{
 export const getProductById = (productId)=>{
     const db = getFirestore()
     const queryDoc = doc(db, 'productos', productId)
-    // 'FjZy7VVFaZV9PYyqb6aq'
     return new Promise((resolve, reject)=>{
         getDoc(queryDoc)
         .then( resp => {
@@ -71,4 +70,22 @@ export const getProductById = (productId)=>{
     //             resolve(json)
     //         })
     }).catch( er=> reject(er))
+}
+
+
+export const createOrder = async (order) => {
+    const db = getFirestore()
+    const queryCollection = collection(db, 'orders')
+    return addDoc(queryCollection, order)
+        .then(resp => {
+            order.items.map(async item =>{
+                const producto = await getProductById(item.id)
+                const queryDoc = doc(db, 'productos', item.id)
+                const newQuantity = producto.rating - item.quiantity
+                await updateDoc(queryDoc, {
+                    rating: newQuantity
+                })
+            })
+            return resp.id
+        }).catch(err=> console.log(err))
 }

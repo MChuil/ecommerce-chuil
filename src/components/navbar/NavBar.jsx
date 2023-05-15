@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getCategories } from '../../../asyncMock'
+// import { getCategories } from '../../../asyncMock'
 import CartWidget from '../CartWidget/CartWidget'
+
+const categories =[
+  { path: "/category/men's clothing", name: "men's clothing"},
+  { path: "/category/electronics", name: "electronics"},
+]
+
 const NavBar = () => {
 
   // const [itemsMenu, setItemsMenu] = useState([])
@@ -22,12 +28,7 @@ const NavBar = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
-                      {/* {itemsMenu.map(item=>
-                          <li className="nav-item" key={item}><Link to={`/category/${item}`}  className="nav-link text-uppercase" aria-current="page" >{item}</Link></li>
-                      )} */}
-                          <li className="nav-item"><Link to={`/category/men's clothing`}  className="nav-link text-uppercase" aria-current="page" >men's clothing</Link></li>
-                          <li className="nav-item"><Link to={`/category/electronics`}  className="nav-link text-uppercase" aria-current="page" >electronics</Link></li>
-
+                      { categories.map( category =>  <li className="nav-item"><Link to={category.path}  className="nav-link text-uppercase" aria-current="page" >{category.name}</Link></li> )}
                     </ul>
                 </div>
                 <CartWidget />
